@@ -2,203 +2,116 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { X } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Menu, Moon, Sun, X } from "lucide-react";
 
-interface NavLinksProps {
-  onClick?: () => void;
-  showNavLinks: boolean;
-}
+const navLinks = [
+  { href: "/#about", number: "01.", label: "About" },
+  { href: "/#skills", number: "02.", label: "Skills" },
+  { href: "/#experience", number: "03.", label: "Experience" },
+  { href: "/#projects", number: "04.", label: "Projects" },
+  { href: "/#contact", number: "05.", label: "Contact" },
+];
 
-const NavLinks = ({ onClick, showNavLinks }: NavLinksProps) => {
-  const handleResumeDownload = (e: React.MouseEvent) => {
-    e.preventDefault();
-    // Create a download link for the resume PDF
-    const link = document.createElement("a");
-    link.href = "/cv/Adeel_Azad_Senior_Frontend_Developer_Resume.pdf"; // Place your PDF file in the public folder
-    link.download = "Adeel_Azad_Senior_Frontend_Developer_Resume.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    if (onClick) onClick();
-  };
+const ThemeToggle = () => {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Avoid a hydration mismatch: the real theme is only known client-side.
+  useEffect(() => setMounted(true), []);
 
   return (
-    <>
-      {showNavLinks && (
-        <>
-          <li>
-            <a
-              href="#about"
-              className="hover:text-theme text-white transition-colors duration-300"
-              onClick={onClick}
-            >
-              <span className="text-theme mr-1 font-mono">01.</span>About
-            </a>
-          </li>
-          <li>
-            <a
-              href="#experience"
-              className="hover:text-theme text-white transition-colors duration-300"
-              onClick={onClick}
-            >
-              <span className="text-theme mr-1 font-mono">02.</span>Experience
-            </a>
-          </li>
-          <li>
-            <a
-              href="#projects"
-              className="hover:text-theme text-white transition-colors duration-300"
-              onClick={onClick}
-            >
-              <span className="text-theme mr-1 font-mono">03.</span>Projects
-            </a>
-          </li>
-          <li>
-            <a
-              href="#contact"
-              className="hover:text-theme text-white transition-colors duration-300"
-              onClick={onClick}
-            >
-              <span className="text-theme mr-1 font-mono">04.</span>Contact
-            </a>
-          </li>
-        </>
+    <button
+      type="button"
+      aria-label="Toggle theme"
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      className="bg-muted text-foreground hover:text-primary flex h-9 w-9 items-center justify-center rounded-full transition-colors"
+    >
+      {mounted && resolvedTheme === "dark" ? (
+        <Sun className="h-[18px] w-[18px]" />
+      ) : (
+        <Moon className="h-[18px] w-[18px]" />
       )}
-      <li>
-        <button
-          onClick={handleResumeDownload}
-          className="border-theme text-theme hover:bg-theme/10 rounded border px-4 py-2 font-mono transition-all duration-300"
-        >
-          Resume
-        </button>
-      </li>
-    </>
+    </button>
   );
 };
 
 export const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const pathname = usePathname();
-
-  // Check if we should show navigation links (hide on Projects and Project Detail pages)
-  const showNavLinks = pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      setScrolled(currentScrollY > 50);
-
-      // Hide header when scrolling down, show when scrolling up
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setIsVisible(false);
-      } else if (currentScrollY < lastScrollY || currentScrollY <= 50) {
-        setIsVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
-
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-
-    // Cleanup function to reset overflow when component unmounts
+    document.body.style.overflow = menuOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [menuOpen]);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <>
-      <header
-        className={`fixed top-0 z-20 w-full transition-all duration-300 ${
-          scrolled ? "bg-navy/90 py-4 shadow-lg backdrop-blur" : "py-6"
-        } ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
-      >
-        <div className="container mx-auto flex items-center justify-between px-8 md:px-4">
-          <Link href="/" className="text-theme">
-            <div className="relative">
-              {/* Polygon shape with AA text */}
-              <div className="bg-navy-lightest/30 flex h-11 w-11 rotate-45 transform items-center justify-center border-2 border-[#64ffda]">
-                <span className="-rotate-45 transform text-xl font-extrabold">
-                  A
-                </span>
-              </div>
-            </div>
-          </Link>
+    <header className="border-border bg-background/80 sticky top-0 z-50 border-b backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
+        <Link
+          href="/#top"
+          className="text-foreground text-xl font-extrabold tracking-tight"
+        >
+          Adeel<span className="text-primary">.</span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:block">
-            <ul className="flex items-center space-x-8">
-              <NavLinks showNavLinks={showNavLinks} />
-            </ul>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="text-slate-light hover:text-theme relative z-[60] transition-colors md:hidden"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            <div className="relative flex h-6 w-6 flex-col items-end justify-center space-y-1.5">
-              <span className="block h-0.5 w-10 bg-cyan-300"></span>
-              <span className="block h-0.5 w-8 bg-cyan-300"></span>
-              <span className="block h-0.5 w-6 bg-cyan-300"></span>
-            </div>
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Menu Blur Overlay - Now positioned outside header for full page coverage */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-all duration-300 ease-in-out md:hidden"
-          onClick={closeMenu}
-          style={{ top: 0, left: 0, right: 0, bottom: 0 }}
-        />
-      )}
-
-      {/* Mobile Menu */}
-      <div
-        className={`bg-navy-light fixed right-0 top-0 z-50 h-screen w-3/4 transform shadow-lg transition-transform duration-300 ease-in-out md:hidden ${
-          menuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="fixed right-8 top-8 z-10 flex justify-end">
-          <button
-            onClick={closeMenu}
-            className="text-slate-light hover:text-theme transition-colors"
-          >
-            <X size={34} />
-          </button>
-        </div>
-        <nav className="fixed top-0 flex h-full w-full items-center justify-center p-4 md:static md:h-auto md:w-auto md:flex-none md:items-start md:justify-start">
-          <ul className="flex flex-col items-center space-y-6">
-            <NavLinks onClick={closeMenu} showNavLinks={showNavLinks} />
-          </ul>
+        {/* Desktop nav links */}
+        <nav className="hidden items-center gap-8 text-sm md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <span className="text-primary">{link.number}</span> {link.label}
+            </Link>
+          ))}
         </nav>
+
+        <div className="flex items-center gap-3.5">
+          <Link
+            href="/resume"
+            className="border-primary text-primary hover:bg-primary/10 hidden rounded-full border px-5 py-2 text-sm font-semibold transition-colors sm:inline-block"
+          >
+            Resume
+          </Link>
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="text-foreground md:hidden"
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
-    </>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <nav className="border-border bg-background flex flex-col gap-1 border-t px-6 py-4 md:hidden">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={closeMenu}
+              className="text-muted-foreground hover:text-foreground py-2 text-sm transition-colors"
+            >
+              <span className="text-primary">{link.number}</span> {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/resume"
+            onClick={closeMenu}
+            className="border-primary text-primary mt-2 rounded-full border px-5 py-2 text-center text-sm font-semibold"
+          >
+            Resume
+          </Link>
+        </nav>
+      )}
+    </header>
   );
 };

@@ -1,87 +1,202 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, MessageCircleCode } from "lucide-react";
+import {
+  Check,
+  Copy,
+  Github,
+  Linkedin,
+  Mail,
+  MessageCircleCode,
+  Send,
+} from "lucide-react";
+
+const EMAIL = "adeelazad591@gmail.com";
 
 export const Contact = () => {
+  const [copied, setCopied] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+    } catch {
+      // Clipboard API unavailable (e.g. insecure context) — the mailto
+      // link below still works as a fallback.
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1600);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = form.subject || `Message from ${form.name || "your site"}`;
+    const body = `${form.message}\n\n— ${form.name} (${form.email})`;
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   return (
     <section
       id="contact"
-      className="flex min-h-max items-center px-0 py-8 sm:px-4 md:h-full md:min-h-screen md:py-16"
+      className="mx-auto max-w-2xl px-6 py-20 text-center sm:px-10"
     >
-      <div className="container mx-auto">
-        <motion.h2
-          className="heading-section mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <p className="text-primary mb-4 text-sm">05. What&apos;s Next?</p>
+        <h2 className="text-foreground mb-5 text-5xl font-extrabold tracking-tight sm:text-6xl">
           Get In Touch
-        </motion.h2>
+        </h2>
+        <p className="text-muted-foreground mx-auto mb-7 max-w-lg text-lg leading-relaxed">
+          I&apos;m currently open to new opportunities. Whether you have a
+          question or just want to say hi, my inbox is always open.
+        </p>
 
-        <motion.div
-          className="mx-auto max-w-2xl text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+        <button
+          type="button"
+          onClick={handleCopyEmail}
+          className="border-border bg-card text-foreground hover:border-primary mb-9 inline-flex items-center gap-2.5 rounded-full border px-4 py-2 text-sm transition-colors"
         >
-          <p className="mb-8 text-base md:text-lg lg:text-xl">
-            I&apos;m currently looking for new opportunities. Whether you have a
-            question or just want to say hi, I&apos;ll do my best to get back to
-            you as soon as possible!
-          </p>
+          <Mail size={16} /> {EMAIL}
+          {copied ? (
+            <Check size={15} className="text-emerald-500" />
+          ) : (
+            <Copy size={15} className="text-faint" />
+          )}
+        </button>
+      </motion.div>
 
-          <a
-            href="mailto:adeelazad591@gmail.com"
-            className="border-theme text-theme hover:bg-theme/10 mb-12 inline-block rounded border-2 px-8 py-4 font-mono transition-all"
-          >
-            Say Hello
-          </a>
-
-          <div className="flex justify-center space-x-8">
-            <a
-              href="https://wa.me/923315186415"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate hover:text-theme transition-colors"
-              aria-label="WhatsApp"
-              title="WhatsApp"
+      <motion.form
+        onSubmit={handleSubmit}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="text-left"
+      >
+        <div className="mb-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <label
+              htmlFor="contact-name"
+              className="text-foreground mb-2 block text-sm font-semibold"
             >
-              <MessageCircleCode size={24} />
-            </a>
-            <a
-              href="mailto:adeelazad591@gmail.com"
-              className="text-slate hover:text-theme transition-colors"
-              aria-label="Email Address"
-              title="Email Address"
-            >
-              <Mail size={24} />
-            </a>
-            <a
-              href="https://linkedin.com/in/adeelazad591"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate hover:text-theme transition-colors"
-              aria-label="LinkedIn Profile"
-              title="LinkedIn Profile"
-            >
-              <Linkedin size={24} />
-            </a>
-            <a
-              href="https://github.com/adeelazad591"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate hover:text-theme transition-colors"
-              aria-label="GitHub Profile"
-              title="GitHub Profile"
-            >
-              <Github size={24} />
-            </a>
+              Name
+            </label>
+            <input
+              id="contact-name"
+              placeholder="Your name"
+              required
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="border-border bg-muted text-foreground focus:border-primary w-full rounded-lg border px-4 py-3 text-[15px] outline-none transition-colors"
+            />
           </div>
-        </motion.div>
-      </div>
+          <div>
+            <label
+              htmlFor="contact-email"
+              className="text-foreground mb-2 block text-sm font-semibold"
+            >
+              Email
+            </label>
+            <input
+              id="contact-email"
+              type="email"
+              placeholder="your@email.com"
+              required
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="border-border bg-muted text-foreground focus:border-primary w-full rounded-lg border px-4 py-3 text-[15px] outline-none transition-colors"
+            />
+          </div>
+        </div>
+
+        <div className="mb-5">
+          <label
+            htmlFor="contact-subject"
+            className="text-foreground mb-2 block text-sm font-semibold"
+          >
+            Subject
+          </label>
+          <input
+            id="contact-subject"
+            placeholder="What's this about?"
+            value={form.subject}
+            onChange={(e) => setForm({ ...form, subject: e.target.value })}
+            className="border-border bg-muted text-foreground focus:border-primary w-full rounded-lg border px-4 py-3 text-[15px] outline-none transition-colors"
+          />
+        </div>
+
+        <div className="mb-6">
+          <label
+            htmlFor="contact-message"
+            className="text-foreground mb-2 block text-sm font-semibold"
+          >
+            Message
+          </label>
+          <textarea
+            id="contact-message"
+            rows={5}
+            placeholder="Your message..."
+            required
+            value={form.message}
+            onChange={(e) => setForm({ ...form, message: e.target.value })}
+            className="border-border bg-muted text-foreground focus:border-primary w-full resize-y rounded-lg border px-4 py-3 text-[15px] outline-none transition-colors"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-primary hover:bg-primary/90 flex w-full items-center justify-center gap-2.5 rounded-full py-4 text-base font-semibold text-white transition-colors"
+        >
+          <Send size={17} /> Send Message
+        </button>
+      </motion.form>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="mt-9 flex justify-center gap-8"
+      >
+        <a
+          href="https://wa.me/923315186415"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-muted-foreground hover:text-primary transition-colors"
+          aria-label="WhatsApp"
+          title="WhatsApp"
+        >
+          <MessageCircleCode size={22} />
+        </a>
+        <a
+          href={`mailto:${EMAIL}`}
+          className="text-muted-foreground hover:text-primary transition-colors"
+          aria-label="Email Address"
+          title="Email Address"
+        >
+          <Mail size={22} />
+        </a>
+        <a
+          href="https://linkedin.com/in/adeelazad591"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-muted-foreground hover:text-primary transition-colors"
+          aria-label="LinkedIn Profile"
+          title="LinkedIn Profile"
+        >
+          <Github size={22} />
+        </a>
+      </motion.div>
     </section>
   );
 };

@@ -32,7 +32,7 @@ export const ScrollToTop = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`bg-theme text-navy hover:bg-theme/80 fixed bottom-4 right-4 z-30 rounded-full p-2 shadow-lg transition-all duration-300 hover:scale-110 sm:bottom-6 sm:right-6 sm:p-3 ${
+      className={`bg-primary hover:bg-primary/80 fixed bottom-4 right-4 z-30 rounded-full p-2 text-white shadow-lg transition-all duration-300 hover:scale-110 sm:bottom-6 sm:right-6 sm:p-3 ${
         isVisible
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-2 opacity-0"

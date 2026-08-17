@@ -60,7 +60,7 @@ export default function ResumePage() {
         <div className="mb-8 flex items-center justify-between">
           <Link
             href="/"
-            className="text-slate hover:text-theme flex items-center transition-colors"
+            className="text-muted-foreground hover:text-primary flex items-center transition-colors"
           >
             <ArrowLeft size={20} className="mr-2" />
             Back to Home
@@ -68,7 +68,7 @@ export default function ResumePage() {
 
           <button
             onClick={handleDownload}
-            className="bg-theme text-navy flex items-center rounded px-4 py-2 font-medium transition-colors hover:bg-opacity-80"
+            className="bg-primary flex items-center rounded px-4 py-2 font-medium text-white transition-colors hover:opacity-90"
           >
             <Download size={18} className="mr-2" />
             Download PDF

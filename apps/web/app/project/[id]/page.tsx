@@ -12,9 +12,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
-import { ScrollToTop } from "@/components/ScrollToTop";
 import { projectsData, type Project } from "@/lib/projectData";
 
 export default function ProjectDetailPage() {
@@ -78,407 +75,402 @@ export default function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <div className="bg-navy flex min-h-screen items-center justify-center">
-        <div className="text-xl text-white">Project not found</div>
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-foreground text-xl">Project not found</div>
       </div>
     );
   }
 
   return (
-    <div className="bg-navy min-h-screen">
-      <Navbar />
+    <div className="mx-auto max-w-6xl px-6 pb-20 pt-16 sm:px-10">
+      {/* Back Button */}
+      <Link
+        href="/projects"
+        className="text-muted-foreground hover:text-foreground mb-8 inline-flex items-center transition-colors"
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" />
+        Back to Projects
+      </Link>
 
-      <div className="container mx-auto px-4 pb-8 pt-24">
-        {/* Back Button */}
-        <Link
-          href="/projects"
-          className="text-slate hover:text-theme mb-8 inline-flex items-center transition-colors"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Projects
-        </Link>
-
-        {/* Project Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <div className="mb-4 flex items-center gap-4">
-            <h1 className="text-2xl font-bold text-white sm:text-4xl md:text-5xl">
-              {project.title}
-            </h1>
-            <span className="text-slate text-lg">{project.year}</span>
+      {/* Project Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="mb-12"
+      >
+        <div className="mb-4 flex items-center gap-4">
+          <h1 className="text-foreground text-2xl font-bold sm:text-4xl md:text-5xl">
+            {project.title}
+          </h1>
+          <span className="text-muted-foreground text-lg">{project.year}</span>
+        </div>
+        <div className="mb-6 flex items-center gap-4">
+          <span className="bg-primary/15 text-primary rounded-full px-3 py-1 text-sm font-medium">
+            {project.category}
+          </span>
+          <div className="flex gap-4">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors"
+            >
+              <Github className="h-4 w-4" />
+              GitHub
+            </a>
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Live Demo
+            </a>
           </div>
-          <div className="mb-6 flex items-center gap-4">
-            <span className="bg-theme/20 text-theme rounded-full px-3 py-1 text-sm font-medium">
-              {project.category}
-            </span>
-            <div className="flex gap-4">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate hover:text-theme flex items-center gap-2 transition-colors"
-              >
-                <Github className="h-4 w-4" />
-                GitHub
-              </a>
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate hover:text-theme flex items-center gap-2 transition-colors"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Live Demo
-              </a>
+        </div>
+      </motion.div>
+
+      {/* Image Carousel */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="bg-muted relative mb-12 overflow-hidden rounded-lg"
+      >
+        <div className="relative h-auto md:h-[500px]">
+          {imagesLoaded[currentImageIndex] ? (
+            <motion.img
+              key={currentImageIndex}
+              src={project.images[currentImageIndex].url}
+              alt={project.images[currentImageIndex].caption}
+              className="h-full w-full rounded-lg object-contain"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+          ) : (
+            <div className="bg-muted flex h-full w-full items-center justify-center">
+              <div className="text-muted-foreground text-lg">Loading...</div>
             </div>
-          </div>
-        </motion.div>
+          )}
 
-        {/* Image Carousel */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-lightest-navy relative mb-12 overflow-hidden rounded-lg"
-        >
-          <div className="relative h-auto md:h-[500px]">
-            {imagesLoaded[currentImageIndex] ? (
-              <motion.img
-                key={currentImageIndex}
-                src={project.images[currentImageIndex].url}
-                alt={project.images[currentImageIndex].caption}
-                className="h-full w-full rounded-lg object-contain"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-              />
-            ) : (
-              <div className="bg-lightest-navy flex h-full w-full items-center justify-center">
-                <div className="text-slate text-lg">Loading...</div>
+          {/* Carousel Controls */}
+          {project.images.length > 1 && (
+            <>
+              <button
+                onClick={prevImage}
+                className="bg-background/80 hover:bg-background text-foreground absolute left-4 top-1/2 -translate-y-1/2 transform rounded-full p-2 transition-colors"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={nextImage}
+                className="bg-background/80 hover:bg-background text-foreground absolute right-4 top-1/2 -translate-y-1/2 transform rounded-full p-2 transition-colors"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="absolute -bottom-8 left-1/2 flex -translate-x-1/2 transform gap-2 md:bottom-4">
+                {project.images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`h-2 w-2 rounded-full transition-colors ${
+                      index === currentImageIndex
+                        ? "bg-primary"
+                        : "bg-muted-foreground/40"
+                    }`}
+                  />
+                ))}
               </div>
-            )}
+            </>
+          )}
+        </div>
+        <div className="text-muted-foreground pt-12 text-center md:p-4">
+          {project.images[currentImageIndex].caption}
+        </div>
+      </motion.div>
 
-            {/* Carousel Controls */}
-            {project.images.length > 1 && (
+      {/* Project Content */}
+      <div className="grid gap-8 lg:grid-cols-3">
+        <div className="space-y-8 lg:col-span-2">
+          {/* Under Construction Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {project.sections?.underConstruction?.dummyText && (
               <>
-                <button
-                  onClick={prevImage}
-                  className="bg-navy/80 hover:bg-navy absolute left-4 top-1/2 -translate-y-1/2 transform rounded-full p-2 text-white transition-colors"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="bg-navy/80 hover:bg-navy absolute right-4 top-1/2 -translate-y-1/2 transform rounded-full p-2 text-white transition-colors"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
+                <h2 className="text-primary mb-4 text-xl font-semibold md:text-2xl">
+                  Project Details Coming Soon
+                </h2>
 
-                {/* Dots Indicator */}
-                <div className="absolute -bottom-8 left-1/2 flex -translate-x-1/2 transform gap-2 md:bottom-4">
-                  {project.images.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`h-2 w-2 rounded-full transition-colors ${
-                        index === currentImageIndex ? "bg-theme" : "bg-slate/50"
-                      }`}
-                    />
-                  ))}
+                <div className="space-y-4">
+                  {project.sections?.underConstruction?.dummyText && (
+                    <div>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {project.sections.underConstruction.dummyText}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </>
             )}
-          </div>
-          <div className="text-slate pt-12 text-center md:p-4">
-            {project.images[currentImageIndex].caption}
-          </div>
-        </motion.div>
+          </motion.section>
 
-        {/* Project Content */}
-        <div className="grid gap-8 lg:grid-cols-3">
-          <div className="space-y-8 lg:col-span-2">
-            {/* Under Construction Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              {project.sections?.underConstruction?.dummyText && (
-                <>
-                  <h2 className="text-theme mb-4 text-xl font-semibold md:text-2xl">
-                    Project Details Coming Soon
-                  </h2>
+          {/* Background Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {(project.sections?.background?.challenge ||
+              project.sections?.background?.objective) && (
+              <>
+                <h2 className="text-primary mb-4 text-xl font-semibold md:text-2xl">
+                  Background
+                </h2>
 
-                  <div className="space-y-4">
-                    {project.sections?.underConstruction?.dummyText && (
-                      <div>
-                        <p className="text-slate leading-relaxed">
-                          {project.sections.underConstruction.dummyText}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-            </motion.section>
-
-            {/* Background Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              {(project.sections?.background?.challenge ||
-                project.sections?.background?.objective) && (
-                <>
-                  <h2 className="text-theme mb-4 text-xl font-semibold md:text-2xl">
-                    Background
-                  </h2>
-
-                  <div className="space-y-4">
-                    {project.sections?.background?.challenge && (
-                      <div>
-                        <h3 className="mb-2 text-lg font-medium text-white">
-                          Challenge:
-                        </h3>
-                        <p className="text-slate leading-relaxed">
-                          {project.sections.background.challenge}
-                        </p>
-                      </div>
-                    )}
-
-                    {project.sections?.background?.objective && (
-                      <div>
-                        <h3 className="mb-2 text-lg font-medium text-white">
-                          Objective:
-                        </h3>
-                        <p className="text-slate leading-relaxed">
-                          {project.sections.background.objective}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-            </motion.section>
-
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              {(project.sections?.research?.methods ||
-                project.sections?.research?.keyFindings?.length) && (
-                <>
-                  <h2 className="text-theme mb-4 text-xl font-semibold md:text-2xl">
-                    Research
-                  </h2>
-
-                  <div className="space-y-4">
-                    {project.sections?.research?.methods && (
-                      <div>
-                        <h3 className="mb-2 text-lg font-medium text-white">
-                          Methods:
-                        </h3>
-                        <p className="text-slate leading-relaxed">
-                          {project.sections.research.methods}
-                        </p>
-                      </div>
-                    )}
-
-                    {project.sections?.research?.keyFindings?.length ? (
-                      <div>
-                        <h3 className="mb-2 text-lg font-medium text-white">
-                          Key Findings:
-                        </h3>
-                        <ul className="text-slate list-inside list-disc leading-relaxed">
-                          {project.sections.research.keyFindings.map(
-                            (result, index) => (
-                              <li key={index}>{result}</li>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                    ) : null}
-                  </div>
-                </>
-              )}
-            </motion.section>
-
-            {/* Design Process Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              {(project.sections?.designProcess?.ideation ||
-                project.sections?.designProcess?.prototyping ||
-                project.sections?.designProcess?.testing) && (
-                <>
-                  <h2 className="text-theme mb-4 text-xl font-semibold md:text-2xl">
-                    Design Process
-                  </h2>
-
-                  <div className="space-y-4">
-                    {project.sections?.designProcess?.ideation && (
-                      <div>
-                        <h3 className="mb-2 text-lg font-medium text-white">
-                          Ideation & Wireframing:
-                        </h3>
-                        <p className="text-slate leading-relaxed">
-                          {project.sections.designProcess.ideation}
-                        </p>
-                      </div>
-                    )}
-
-                    {project.sections?.designProcess?.prototyping && (
-                      <div>
-                        <h3 className="mb-2 text-lg font-medium text-white">
-                          Prototyping:
-                        </h3>
-                        <p className="text-slate leading-relaxed">
-                          {project.sections.designProcess.prototyping}
-                        </p>
-                      </div>
-                    )}
-
-                    {project.sections?.designProcess?.testing && (
-                      <div>
-                        <h3 className="mb-2 text-lg font-medium text-white">
-                          User Testing & Iteration:
-                        </h3>
-                        <p className="text-slate leading-relaxed">
-                          {project.sections.designProcess.testing}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-            </motion.section>
-
-            {/* Contribution Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              {project.sections?.designProcess?.contributions && (
-                <>
-                  <h2 className="text-theme mb-4 text-xl font-semibold md:text-2xl">
-                    What I Contributed
-                  </h2>
-
-                  <div className="space-y-4">
+                <div className="space-y-4">
+                  {project.sections?.background?.challenge && (
                     <div>
-                      <ul className="text-slate list-inside list-disc leading-relaxed">
-                        {project.sections.designProcess.contributions.map(
+                      <h3 className="text-foreground mb-2 text-lg font-medium">
+                        Challenge:
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {project.sections.background.challenge}
+                      </p>
+                    </div>
+                  )}
+
+                  {project.sections?.background?.objective && (
+                    <div>
+                      <h3 className="text-foreground mb-2 text-lg font-medium">
+                        Objective:
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {project.sections.background.objective}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            {(project.sections?.research?.methods ||
+              project.sections?.research?.keyFindings?.length) && (
+              <>
+                <h2 className="text-primary mb-4 text-xl font-semibold md:text-2xl">
+                  Research
+                </h2>
+
+                <div className="space-y-4">
+                  {project.sections?.research?.methods && (
+                    <div>
+                      <h3 className="text-foreground mb-2 text-lg font-medium">
+                        Methods:
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {project.sections.research.methods}
+                      </p>
+                    </div>
+                  )}
+
+                  {project.sections?.research?.keyFindings?.length ? (
+                    <div>
+                      <h3 className="text-foreground mb-2 text-lg font-medium">
+                        Key Findings:
+                      </h3>
+                      <ul className="text-muted-foreground list-inside list-disc leading-relaxed">
+                        {project.sections.research.keyFindings.map(
                           (result, index) => (
                             <li key={index}>{result}</li>
                           )
                         )}
                       </ul>
                     </div>
-                  </div>
-                </>
-              )}
-            </motion.section>
+                  ) : null}
+                </div>
+              </>
+            )}
+          </motion.section>
 
-            {/* Achievements Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              {project.sections?.results &&
-                project.sections.results.length > 0 && (
-                  <>
-                    <h2 className="text-theme mb-4 text-xl font-semibold md:text-2xl">
-                      Achievements
-                    </h2>
+          {/* Design Process Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            {(project.sections?.designProcess?.ideation ||
+              project.sections?.designProcess?.prototyping ||
+              project.sections?.designProcess?.testing) && (
+              <>
+                <h2 className="text-primary mb-4 text-xl font-semibold md:text-2xl">
+                  Design Process
+                </h2>
 
-                    <ul className="text-slate list-inside list-disc leading-relaxed">
-                      {project.sections.results.map((result, index) => (
-                        <li key={index}>{result}</li>
-                      ))}
+                <div className="space-y-4">
+                  {project.sections?.designProcess?.ideation && (
+                    <div>
+                      <h3 className="text-foreground mb-2 text-lg font-medium">
+                        Ideation & Wireframing:
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {project.sections.designProcess.ideation}
+                      </p>
+                    </div>
+                  )}
+
+                  {project.sections?.designProcess?.prototyping && (
+                    <div>
+                      <h3 className="text-foreground mb-2 text-lg font-medium">
+                        Prototyping:
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {project.sections.designProcess.prototyping}
+                      </p>
+                    </div>
+                  )}
+
+                  {project.sections?.designProcess?.testing && (
+                    <div>
+                      <h3 className="text-foreground mb-2 text-lg font-medium">
+                        User Testing & Iteration:
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {project.sections.designProcess.testing}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </motion.section>
+
+          {/* Contribution Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            {project.sections?.designProcess?.contributions && (
+              <>
+                <h2 className="text-primary mb-4 text-xl font-semibold md:text-2xl">
+                  What I Contributed
+                </h2>
+
+                <div className="space-y-4">
+                  <div>
+                    <ul className="text-muted-foreground list-inside list-disc leading-relaxed">
+                      {project.sections.designProcess.contributions.map(
+                        (result, index) => (
+                          <li key={index}>{result}</li>
+                        )
+                      )}
                     </ul>
-                  </>
-                )}
-            </motion.section>
+                  </div>
+                </div>
+              </>
+            )}
+          </motion.section>
 
-            {/* Conclusion Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              {project.sections?.conclusion && (
+          {/* Achievements Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            {project.sections?.results &&
+              project.sections.results.length > 0 && (
                 <>
-                  <h2 className="text-theme mb-4 text-xl font-semibold md:text-2xl">
-                    Conclusion
+                  <h2 className="text-primary mb-4 text-xl font-semibold md:text-2xl">
+                    Achievements
                   </h2>
 
-                  <p className="text-slate leading-relaxed">
-                    {project.sections.conclusion}
-                  </p>
+                  <ul className="text-muted-foreground list-inside list-disc leading-relaxed">
+                    {project.sections.results.map((result, index) => (
+                      <li key={index}>{result}</li>
+                    ))}
+                  </ul>
                 </>
               )}
-            </motion.section>
-          </div>
+          </motion.section>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-lightest-navy sticky top-8 rounded-lg p-0 lg:p-6"
-            >
-              <h3 className="mb-4 text-xl font-semibold text-white">
-                Technologies Used
-              </h3>
-              <div className="mb-6 flex flex-wrap gap-2">
-                {project.tech.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="text-theme bg-navy-lightest/30 rounded px-2 py-1 font-mono text-sm"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+          {/* Conclusion Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            {project.sections?.conclusion && (
+              <>
+                <h2 className="text-primary mb-4 text-xl font-semibold md:text-2xl">
+                  Conclusion
+                </h2>
 
-              <div className="space-y-4">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate hover:text-theme flex items-center gap-2 transition-colors"
+                <p className="text-muted-foreground leading-relaxed">
+                  {project.sections.conclusion}
+                </p>
+              </>
+            )}
+          </motion.section>
+        </div>
+
+        {/* Sidebar */}
+        <div className="lg:col-span-1">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="border-border bg-card sticky top-24 rounded-lg border p-6"
+          >
+            <h3 className="text-foreground mb-4 text-xl font-semibold">
+              Technologies Used
+            </h3>
+            <div className="mb-6 flex flex-wrap gap-2">
+              {project.tech.map((tech, index) => (
+                <span
+                  key={index}
+                  className="text-primary bg-muted rounded px-2 py-1 text-sm"
                 >
-                  <Github className="h-5 w-5" />
-                  View on GitHub
-                </a>
-                <a
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate hover:text-theme flex items-center gap-2 transition-colors"
-                >
-                  <ExternalLink className="h-5 w-5" />
-                  Live Demo
-                </a>
-              </div>
-            </motion.div>
-          </div>
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <div className="space-y-4">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors"
+              >
+                <Github className="h-5 w-5" />
+                View on GitHub
+              </a>
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors"
+              >
+                <ExternalLink className="h-5 w-5" />
+                Live Demo
+              </a>
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      <Footer />
-      <ScrollToTop />
     </div>
   );
 }

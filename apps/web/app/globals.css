@@ -1,48 +1,92 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
-@layer base {
-  :root {
-    --background: 226 35% 12%;
-    --foreground: 210 40% 98%;
+/* Extra content sources Tailwind's automatic scanner can't reach on its
+   own: the shared UI package lives outside this app, symlinked in via the
+   pnpm workspace, so it needs to be named explicitly. */
+@source "../../packages/ui/src";
 
-    --card: 226 35% 12%;
-    --card-foreground: 210 40% 98%;
+/* Class-based dark mode (driven by next-themes toggling `.dark` on <html>),
+   matching this design's explicit light/dark toggle rather than relying on
+   OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
 
-    --popover: 226 35% 12%;
-    --popover-foreground: 210 40% 98%;
+/*
+ * Design tokens. These reuse shadcn's own semantic names (background,
+ * foreground, primary, muted, accent, border, ...) rather than inventing a
+ * parallel set, because @adeel-portfolio/ui's components (Button, Toast,
+ * Carousel, Sonner) already hardcode those exact class names — redefining
+ * the values here re-themes those primitives automatically.
+ */
+@theme {
+  /* Hanken Grotesk everywhere — no other font family in the project. */
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;
+  --font-mono: "Hanken Grotesk", system-ui, sans-serif;
 
-    --primary: 171 100% 70%;
-    --primary-foreground: 226 35% 12%;
+  --color-background: #ffffff;
+  --color-foreground: #141821;
+  --color-body: #353c4a; /* regular paragraph text, one step softer than foreground */
+  --color-faint: #97a1b0; /* placeholder-level text */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+  --color-card: #fbfcfd;
+  --color-card-foreground: #141821;
+  --color-popover: #fbfcfd;
+  --color-popover-foreground: #141821;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+  --color-primary: #20609a; /* brand accent */
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f6f8fa;
+  --color-secondary-foreground: #141821;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+  --color-muted: #f6f8fa; /* sunken / inset backgrounds, chip fills */
+  --color-muted-foreground: #6b7585; /* secondary text, labels */
+  --color-accent: #f6f8fa; /* hover backgrounds */
+  --color-accent-foreground: #141821;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+  --color-destructive: #db3a3a;
+  --color-destructive-foreground: #ffffff;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+  --color-border: #e1e6ed; /* hairlines, chip borders */
+  --color-input: #e1e6ed;
+  --color-ring: #20609a;
 
-    --radius: 0.5rem;
-  }
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  --animate-bob: bob 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.dark {
+  --color-background: #0a0d14;
+  --color-foreground: #ffffff;
+  --color-body: #d3dae4;
+  --color-faint: #6b7585;
+
+  --color-card: #141821;
+  --color-card-foreground: #ffffff;
+  --color-popover: #141821;
+  --color-popover-foreground: #ffffff;
+
+  --color-primary: #5ea0d6;
+  --color-primary-foreground: #0a0d14;
+  --color-secondary: #1a2029;
+  --color-secondary-foreground: #ffffff;
+
+  --color-muted: #1a2029;
+  --color-muted-foreground: #97a1b0;
+  --color-accent: #1a2029;
+  --color-accent-foreground: #ffffff;
+
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-input: rgba(255, 255, 255, 0.09);
+  --color-ring: #5ea0d6;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -52,60 +96,21 @@
   }
 
   body {
-    @apply bg-navy text-slate font-sans;
-    overflow-x: hidden;
-  }
-
-  /* Full page scroll snap */
-  .snap-container {
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-    height: 100vh;
-  }
-
-  .snap-section {
-    scroll-snap-align: start;
-    min-height: 100vh;
+    @apply bg-background text-body font-sans;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    @apply bg-navy-lightest text-theme;
+    background: color-mix(in srgb, var(--color-primary) 16%, transparent);
   }
+}
 
-  /* Reset counter for each page load */
-  body {
-    counter-reset: section;
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-
-  /* Section headings */
-  .heading-section {
-    @apply text-slate-lightest relative flex items-center text-2xl font-bold sm:text-3xl;
-    counter-increment: section;
-  }
-
-  .heading-section::before {
-    @apply text-theme mr-2 font-mono text-xl sm:text-2xl;
-    content: "0" counter(section) ".";
-  }
-
-  .heading-section::after {
-    @apply bg-navy-lightest ml-4 h-[1px] w-full sm:w-1/3;
-    content: "";
-  }
-
-  /* Mobile responsive adjustments */
-  @media (max-width: 768px) {
-    .snap-section {
-      min-height: auto !important;
-      height: auto !important;
-    }
-
-    .snap-container {
-      scroll-snap-type: none;
-      height: auto;
-    }
-    .heading-section::after {
-      display: none;
-    }
+  50% {
+    transform: translateY(7px);
   }
 }
