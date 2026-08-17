@@ -194,6 +194,16 @@ export const Contact = () => {
           aria-label="LinkedIn Profile"
           title="LinkedIn Profile"
         >
+          <Linkedin size={22} />
+        </a>
+        <a
+          href="https://github.com/adeelazad591"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-muted-foreground hover:text-primary transition-colors"
+          aria-label="GitHub Profile"
+          title="GitHub Profile"
+        >
           <Github size={22} />
         </a>
       </motion.div>
