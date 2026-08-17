@@ -1,0 +1,9 @@
+{
+  "extends": "@adeel-portfolio/config/typescript/base.json",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "ES2022"],
+    "jsx": "react-jsx",
+    "noEmit": true
+  },
+  "include": ["src"]
+}
