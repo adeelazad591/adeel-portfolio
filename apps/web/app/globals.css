@@ -56,6 +56,7 @@
   --radius-xl: 18px;
 
   --animate-bob: bob 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  --animate-marquee: marquee 28s linear infinite;
 }
 
 .dark {
@@ -112,5 +113,16 @@
   }
   50% {
     transform: translateY(7px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Track is the item list duplicated once, so -50% is exactly one full
+       set of items — the loop point is seamless. */
+    transform: translateX(-50%);
   }
 }

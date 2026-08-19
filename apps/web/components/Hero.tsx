@@ -4,17 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import Link from "next/link";
 
-const stack = [
-  "HTML & CSS",
-  "JavaScript (ES6+)",
-  "React",
-  "Svelte",
-  "Tailwind CSS",
-  "Material UI",
-  "Redux",
-  "Git & GitHub",
-  "Figma",
-];
+import { TechMarquee } from "./TechMarquee";
 
 const handleResumeDownload = () => {
   const link = document.createElement("a");
@@ -47,7 +37,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-foreground text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+          className="text-foreground text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
         >
           Adeel Azad<span className="text-primary">.</span>
         </motion.h1>
@@ -56,41 +46,27 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-body mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl"
+          className="text-body text-muted-foreground text-h1 mt-2 font-bold tracking-tight sm:text-4xl md:text-5xl"
         >
-          I build things for the web.
+          I bring ideas to the web.
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-body mx-auto mt-7 max-w-xl text-balance text-lg leading-relaxed"
+          className="text-body mx-auto mt-7 max-w-2xl text-balance text-xl leading-relaxed"
         >
-          Frontend developer focused on crafting engaging and intuitive web
-          experiences. Currently building accessible, human-centered products at{" "}
-          <a
-            href="https://www.knowledgeplatform.com.pk/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline"
-          >
-            Knowledge Platform
-          </a>
-          .
+          Frontend Engineer crafting accessible, intuitive, and human-centered
+          web experiences with AI-augmented development.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="border-border bg-card shadow-xs mx-auto mt-10 flex max-w-2xl flex-wrap justify-center gap-2.5 rounded-full border px-5 py-4"
         >
-          {stack.map((tech) => (
-            <span key={tech} className="text-muted-foreground px-1.5 text-sm">
-              {tech}
-            </span>
-          ))}
+          <TechMarquee />
         </motion.div>
 
         <motion.div
