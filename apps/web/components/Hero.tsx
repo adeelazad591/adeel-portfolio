@@ -123,7 +123,7 @@ export const Hero = () => {
               {trustedCompanies.map((company) => (
                 <span
                   key={company}
-                  className="text-foreground/85 hover:text-accent text-sm font-semibold tracking-tight transition-colors duration-200 sm:text-base"
+                  className="text-foreground/85 hover:text-primary text-sm font-semibold tracking-tight transition-colors duration-200 sm:text-base"
                 >
                   {company}
                 </span>

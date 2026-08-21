@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={hankenGrotesk.variable} suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
         <Providers>
           <Navbar />
           {children}
