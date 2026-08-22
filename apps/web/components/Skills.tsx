@@ -13,7 +13,9 @@ const skillGroups = [
       "HTML5 / CSS3",
       "JavaScript (ES6+)",
       "React",
+      "Next.Js",
       "Svelte",
+      "API Integration",
       "Tailwind CSS",
       "Material UI",
       "Bootstrap",
@@ -30,25 +32,26 @@ const skillGroups = [
     ],
   },
   {
-    name: "Backend & Database (Interested)",
+    name: "Backend & Database",
     items: [
-      "Node.js",
-      "Express",
+      "Nest Js",
       "REST APIs",
       "GraphQL",
       "MongoDB",
       "PostgreSQL",
+      "MySQL",
+      "NoSQL",
     ],
   },
   {
     name: "Tools & Workflow",
     items: [
       "Git & GitHub",
+      "Github Desktop",
       "Figma",
       "Adobe XD",
       "Webpack",
       "Vite",
-      "API Integration",
     ],
   },
 ];
@@ -58,7 +61,7 @@ export const Skills = () => {
     <section id="skills" className="mx-auto max-w-6xl px-6 py-20 sm:px-10">
       <SectionHeading number="02." title="Skills & Expertise" />
 
-      <div className="grid grid-cols-1 gap-11 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-14 sm:grid-cols-2">
         {skillGroups.map((group, index) => (
           <motion.div
             key={group.name}
@@ -67,14 +70,14 @@ export const Skills = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
           >
-            <p className="text-primary mb-4 text-xs font-semibold uppercase tracking-widest">
+            <p className="text-primary mb-4 text-sm font-bold uppercase tracking-widest">
               {group.name}
             </p>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="flex flex-wrap gap-1.5">
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="border-border bg-muted text-body rounded-full border px-4 py-2 text-sm font-medium"
+                  className="border-border text-body hover:border-primary hover:bg-primary/5 hover:text-primary cursor-default rounded-full border px-4 py-2 text-sm font-medium transition-colors"
                 >
                   {item}
                 </span>

@@ -8,10 +8,38 @@ import { SectionHeading } from "./SectionHeading";
 const jobs = [
   {
     title: "Senior Frontend Developer",
+    company: "Bright Byte Consulting",
+    companyLink: "https://brightbyteconsulting.dev/",
+    period: "August 2025 - Present",
+    location: "Islamabad, Pakistan - (Hybrid)",
+    type: "Full-time",
+    bullets: [
+      "Built reusable and scalable interfaces using React, Tailwind CSS, and Material UI.",
+      "Integrated REST APIs using TanStack React Query, managing data fetching, caching, loading, and error states.",
+      "Analyzed Jira requirements and translated them into intuitive, responsive UI designs before implementation.",
+      "Used Tailwind CSS, Bootstrap, and Material UI to build consistent, scalable, and modern interfaces.",
+      "Collaborated closely with backend engineers to clarify requirements, API contracts, and technical solutions.",
+      "Contributed to backend development by building and integrating APIs using NestJS.",
+      "Managed feature delivery across development and QA environments, including deployment, verification, and issue resolution.",
+      "Prepared and managed production builds and releases, ensuring features were stable and production-ready.",
+    ],
+    tech: [
+      "React",
+      "Next.js",
+      "TanStack React Query",
+      "NestJS (Learning)",
+      "Tailwind CSS",
+      "Material UI",
+      "Git",
+      "GitHub Desktop",
+    ],
+  },
+  {
+    title: "Senior Frontend Developer",
     company: "Knowledge Platform",
     companyLink: "https://knowledgeplatform.com.pk/",
-    period: "August 2018 - Present",
-    location: "Islamabad (Remote)",
+    period: "August 2018 - August 2025",
+    location: "Islamabad, Pakistan - (Hybrid)",
     type: "Full-time",
     bullets: [
       "Built React.js and Svelte LMS platforms used by 200,000+ users globally, deployed in 400+ schools.",
@@ -36,7 +64,7 @@ const jobs = [
     company: "TEO International",
     companyLink: "https://teo.dk/en/home/",
     period: "August 2016 - August 2018",
-    location: "Denmark (Remote)",
+    location: "Islamabad, Pakistan (On Site)",
     type: "Full-time",
     bullets: [
       "Worked on multiple real-time Danish projects involving complex web and mobile applications.",
@@ -52,7 +80,7 @@ const jobs = [
     company: "Global Bridge Solutions",
     companyLink: "https://globalbridgesol.com/",
     period: "January 2015 - August 2016",
-    location: "Islamabad, Pakistan",
+    location: "Islamabad, Pakistan (On Site)",
     type: "Full-time",
     bullets: [
       "Developed customer-facing e-commerce features and CMS using modern JavaScript frameworks.",
@@ -67,7 +95,7 @@ const jobs = [
     company: "MediaLinkers",
     companyLink: "https://www.medialinkers.pk/",
     period: "July 2014 - December 2014",
-    location: "Islamabad, Pakistan",
+    location: "Islamabad, Pakistan (On Site)",
     type: "Full-time",
     bullets: [
       "Designed web and mobile interfaces for small businesses and startups.",

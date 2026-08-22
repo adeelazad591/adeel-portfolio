@@ -25,7 +25,7 @@ const ThemeToggle = () => {
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="bg-muted text-foreground hover:text-primary flex h-9 w-9 items-center justify-center rounded-full transition-colors"
+      className="bg-muted text-foreground hover:text-primary flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-colors"
     >
       {mounted && resolvedTheme === "dark" ? (
         <Sun className="h-[18px] w-[18px]" />
