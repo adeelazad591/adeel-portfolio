@@ -4,13 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  Github,
-  ExternalLink,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { Github, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { projectsData, type Project } from "@/lib/projectData";
 
@@ -83,14 +77,18 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-20 pt-16 sm:px-10">
-      {/* Back Button */}
-      <Link
-        href="/projects"
-        className="text-muted-foreground hover:text-foreground mb-8 inline-flex items-center transition-colors"
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Projects
-      </Link>
+      {/* Breadcrumb */}
+      <nav className="text-muted-foreground mb-8 flex items-center gap-2 text-sm">
+        <Link href="/" className="hover:text-foreground transition-colors">
+          Home
+        </Link>
+        <ChevronRight className="h-4 w-4" />
+        <Link href="/projects" className="hover:text-foreground transition-colors">
+          Projects
+        </Link>
+        <ChevronRight className="h-4 w-4" />
+        <span className="text-foreground font-medium">{project.title}</span>
+      </nav>
 
       {/* Project Header */}
       <motion.div

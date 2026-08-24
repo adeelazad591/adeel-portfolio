@@ -10,7 +10,8 @@ const navLinks = [
   { href: "/#skills", number: "02.", label: "Skills" },
   { href: "/#experience", number: "03.", label: "Experience" },
   { href: "/#projects", number: "04.", label: "Projects" },
-  { href: "/#contact", number: "05.", label: "Contact" },
+  { href: "/#recommendations", number: "05.", label: "Recommendations" },
+  { href: "/#contact", number: "06.", label: "Contact" },
 ];
 
 const ThemeToggle = () => {

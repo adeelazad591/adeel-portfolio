@@ -52,7 +52,7 @@ export const Contact = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <p className="text-primary mb-4 text-sm">05. What&apos;s Next?</p>
+        <p className="text-primary mb-4 text-sm">06. What&apos;s Next?</p>
         <h2 className="text-foreground mb-5 text-5xl font-extrabold tracking-tight sm:text-6xl">
           Get In Touch
         </h2>
@@ -155,7 +155,7 @@ export const Contact = () => {
 
         <button
           type="submit"
-          className="bg-primary hover:bg-primary/90 flex w-full items-center justify-center gap-2.5 rounded-full py-4 text-base font-semibold text-white transition-colors"
+          className="bg-primary hover:bg-primary/90 flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-full py-4 text-base font-semibold text-white transition-colors"
         >
           <Send size={17} /> Send Message
         </button>

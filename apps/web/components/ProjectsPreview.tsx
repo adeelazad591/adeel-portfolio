@@ -94,8 +94,16 @@ export const ProjectsPreview = () => {
         className="mt-16 text-center"
       >
         <Link href="/projects">
-          <Button variant="outline" className="rounded-full px-6 py-2">
+          <Button
+            variant="outline"
+            className="border-border bg-card text-foreground hover:border-primary hover:text-primary group inline-flex cursor-pointer items-center gap-2 rounded-full border px-6 py-3.5 text-sm font-semibold transition-colors"
+          >
             View All Projects
+            <ArrowRight
+              size={16}
+              className="transition-transform duration-300 group-hover:-rotate-45"
+              aria-hidden="true"
+            />
           </Button>
         </Link>
       </motion.div>
