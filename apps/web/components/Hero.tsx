@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import Link from "next/link";
 
+import { downloadResume } from "../lib/downloadResume";
 import { TechMarquee } from "./TechMarquee";
 
 const trustedCompanies = [
@@ -14,15 +15,6 @@ const trustedCompanies = [
   "Global Bridge Solutions",
   "Medialinkers",
 ];
-
-const handleResumeDownload = () => {
-  const link = document.createElement("a");
-  link.href = "/cv/Adeel_Azad_Senior_Frontend_Developer_Resume.pdf";
-  link.download = "Adeel_Azad_Senior_Frontend_Developer_Resume.pdf";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
 
 export const Hero = () => {
   return (
@@ -92,7 +84,7 @@ export const Hero = () => {
           </Link>
           <button
             type="button"
-            onClick={handleResumeDownload}
+            onClick={downloadResume}
             className="border-border bg-card text-foreground hover:border-primary hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-full border px-6 py-3.5 text-sm font-semibold transition-colors"
           >
             <FileText size={17} /> Download Resume

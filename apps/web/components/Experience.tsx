@@ -170,7 +170,7 @@ export const Experience = () => {
                   {job.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="border-border bg-muted text-primary rounded-full border px-3 py-1 text-xs"
+                      className="border-primary/20 bg-primary/10 text-primary rounded-full border px-3 py-1 text-xs"
                     >
                       {tech}
                     </span>

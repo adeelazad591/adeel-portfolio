@@ -40,7 +40,7 @@ export const ProjectsPreview = () => {
               />
             </Link>
 
-            <div>
+            <div className={index % 2 === 1 ? "sm:text-right" : ""}>
               <p className="text-primary mb-3.5 text-sm">Featured Project</p>
               <h3 className="text-foreground mb-5 text-2xl font-extrabold tracking-tight sm:text-3xl">
                 {project.title}
@@ -50,12 +50,16 @@ export const ProjectsPreview = () => {
                   {project.description}
                 </p>
               </div>
-              <div className="text-faint mb-5 flex flex-wrap gap-x-4 gap-y-1.5 text-xs">
+              <div
+                className={`text-faint mb-5 flex flex-wrap gap-x-4 gap-y-1.5 text-xs ${index % 2 === 1 ? "sm:justify-end" : ""}`}
+              >
                 {project.tech.map((tech) => (
                   <span key={tech}>{tech}</span>
                 ))}
               </div>
-              <div className="flex items-center gap-5">
+              <div
+                className={`flex items-center gap-5 ${index % 2 === 1 ? "sm:justify-end" : ""}`}
+              >
                 <Link
                   href={`/project/${project.id}`}
                   className="text-foreground inline-flex items-center gap-1.5 text-sm font-semibold hover:underline"

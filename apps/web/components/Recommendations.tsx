@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Quote, User } from "lucide-react";
 
@@ -14,8 +13,6 @@ const RecommendationCard = ({
   recommendation: (typeof recommendationsData)[number];
   index: number;
 }) => {
-  const [expanded, setExpanded] = useState(false);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -37,20 +34,17 @@ const RecommendationCard = ({
         </a>
       </div>
 
-      <p
-        className={`text-muted-foreground mb-1 text-[15px] leading-relaxed ${
-          expanded ? "" : "line-clamp-4"
-        }`}
-      >
+      <p className="text-muted-foreground mb-1 line-clamp-4 text-[15px] leading-relaxed">
         &ldquo;{recommendation.quote}&rdquo;
       </p>
-      <button
-        type="button"
-        onClick={() => setExpanded((v) => !v)}
+      <a
+        href={recommendation.url}
+        target="_blank"
+        rel="noopener noreferrer"
         className="text-primary mb-4 self-start text-sm font-semibold hover:underline"
       >
-        {expanded ? "Show less" : "Read full"}
-      </button>
+        Read full
+      </a>
 
       <div className="border-border mt-auto flex items-center gap-3 border-t pt-4">
         <span className="bg-muted text-muted-foreground flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
