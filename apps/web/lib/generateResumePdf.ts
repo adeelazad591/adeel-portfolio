@@ -189,13 +189,6 @@ function buildBlocks(
   section("Professional Summary");
   paragraph(resumeData.summary);
 
-  // Technical Skills
-  section("Technical Skills");
-  resumeData.skillGroups.forEach((group, i) => {
-    const isLast = i === resumeData.skillGroups.length - 1;
-    skill(group.label, group.items, isLast ? 16 : 6);
-  });
-
   // Work Experience
   section("Work Experience");
   resumeData.experiences.forEach((exp, ei) => {
@@ -206,6 +199,13 @@ function buildBlocks(
       const isLastJob = ei === resumeData.experiences.length - 1;
       bullet(b, isLastBullet ? (isLastJob ? 16 : 12) : 3);
     });
+  });
+
+  // Technical Skills
+  section("Technical Skills");
+  resumeData.skillGroups.forEach((group, i) => {
+    const isLast = i === resumeData.skillGroups.length - 1;
+    skill(group.label, group.items, isLast ? 16 : 6);
   });
 
   // Education

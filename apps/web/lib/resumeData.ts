@@ -26,13 +26,29 @@ export const resumeData = {
     github: "github.com/adeelazad591",
   },
   summary:
-    "Frontend developer with 10+ years of experience building scalable web apps using React, Svelte, and modern UI frameworks. Passionate about clean UI, performance optimization, exploring Node.js for backend, and leveraging AI tools to boost development speed and quality.",
+    "Frontend Engineer with 10+ years of experience crafting scalable, high-performance web applications with React, Svelte, and modern UI technologies. Focused on building clean, intuitive user experiences, optimizing performance, and writing maintainable code. Currently exploring NestJS for backend development and leveraging AI-powered tools to accelerate development, improve code quality, and build smarter products.",
   experiences: [
     {
       title: "Senior Frontend Developer",
-      dates: "Aug 2018 - Present",
+      dates: "Aug 2025 - Present",
+      company: "Bright Byte Consulting",
+      location: "Islamabad, Pakistan - (Hybrid)",
+      bullets: [
+        "Built reusable and scalable interfaces using React, Tailwind CSS, and Material UI.",
+        "Integrated REST APIs using TanStack React Query, managing data fetching, caching, loading, and error states.",
+        "Analyzed Jira requirements and translated them into intuitive, responsive UI designs before implementation.",
+        "Used Tailwind CSS, Bootstrap, and Material UI to build consistent, scalable, and modern interfaces.",
+        "Collaborated closely with backend engineers to clarify requirements, API contracts, and technical solutions.",
+        "Contributed to backend development by building and integrating APIs using NestJS.",
+        "Managed feature delivery across development and QA environments, including deployment, verification, and issue resolution.",
+        "Prepared and managed production builds and releases, ensuring features were stable and production-ready.",
+      ],
+    },
+    {
+      title: "Senior Frontend Developer",
+      dates: "Aug 2018 - Aug 2025",
       company: "Knowledge Platform",
-      location: "Islamabad (Remote)",
+      location: "Islamabad, Pakistan - (Hybrid)",
       bullets: [
         "Built React and Svelte-based LMS used by 100,000+ users.",
         "Used Tailwind CSS, Bootstrap, and Material UI for fast, consistent UI development.",
@@ -49,7 +65,7 @@ export const resumeData = {
       title: "UI/UX Developer",
       dates: "Aug 2016 - Aug 2018",
       company: "TEO International",
-      location: "Denmark (Remote)",
+      location: "Islamabad, Pakistan (On Site)",
       bullets: [
         "Worked on multiple real-time Danish projects involving complex web and mobile applications.",
         "Designed web and mobile app interfaces with a strong focus on user experience and responsiveness.",
@@ -64,7 +80,7 @@ export const resumeData = {
       title: "Frontend Developer",
       dates: "Jan 2015 - Aug 2016",
       company: "Global Bridge Solutions",
-      location: "Islamabad, Pakistan",
+      location: "Islamabad, Pakistan (On Site)",
       bullets: [
         "Developed customer-facing e-commerce features using modern JavaScript frameworks",
         "Implemented responsive designs using HTML5, CSS3, and JavaScript ES6+",
@@ -76,7 +92,7 @@ export const resumeData = {
       title: "Web Designer",
       dates: "Jul 2014 - Dec 2014",
       company: "MediaLinkers",
-      location: "Islamabad, Pakistan",
+      location: "Islamabad, Pakistan (On Site)",
       bullets: [
         "Designed and developed websites for small businesses and startups",
         "Created custom WordPress themes and plugins",
@@ -113,8 +129,8 @@ export const resumeData = {
       items: "Git, Webpack, Vite, Figma, Adobe XD",
     },
     {
-      label: "Backend & Database (Interested)",
-      items: "Node.js, Express, MongoDB, PostgreSQL, REST APIs, GraphQL",
+      label: "Backend & Database (Exploring)",
+      items: "Nest JS, REST APIs, PostgreSQL, MongoDB, GraphQL",
     },
   ] satisfies SkillGroup[],
   languages: ["English (Fluent)", "Urdu (Native)", "Punjabi (Native)"],

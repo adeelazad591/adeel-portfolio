@@ -103,7 +103,7 @@ export default function ResumePage() {
                 href={`https://${resumeData.contact.linkedin}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-border text-foreground hover:bg-muted inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm transition-colors"
+                className="border-border text-foreground hover:border-primary/40 hover:bg-primary/10 hover:text-primary inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm transition-colors"
               >
                 <Linkedin size={15} />
                 LinkedIn
@@ -118,24 +118,6 @@ export default function ResumePage() {
             <p className="text-body text-sm leading-relaxed">
               {resumeData.summary}
             </p>
-          </section>
-
-          {/* Technical Skills */}
-          <section className="mb-10">
-            <SectionHeading>Technical Skills</SectionHeading>
-            <div className="space-y-3">
-              {resumeData.skillGroups.map((group) => (
-                <div
-                  key={group.label}
-                  className="flex flex-col gap-1 sm:flex-row sm:gap-4"
-                >
-                  <span className="text-foreground w-full shrink-0 text-sm font-bold sm:w-56">
-                    {group.label}:
-                  </span>
-                  <span className="text-body text-sm">{group.items}</span>
-                </div>
-              ))}
-            </div>
           </section>
 
           {/* Work Experience */}
@@ -162,6 +144,24 @@ export default function ResumePage() {
                     </span>
                   </div>
                   <BulletList items={exp.bullets} />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Technical Skills */}
+          <section className="mb-10">
+            <SectionHeading>Technical Skills</SectionHeading>
+            <div className="space-y-3">
+              {resumeData.skillGroups.map((group) => (
+                <div
+                  key={group.label}
+                  className="flex flex-col gap-1 sm:flex-row sm:gap-4"
+                >
+                  <span className="text-foreground w-full shrink-0 text-sm font-bold sm:w-56">
+                    {group.label}:
+                  </span>
+                  <span className="text-body text-sm">{group.items}</span>
                 </div>
               ))}
             </div>
