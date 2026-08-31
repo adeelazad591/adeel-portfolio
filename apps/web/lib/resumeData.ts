@@ -74,6 +74,8 @@ export const resumeData = {
         "Developed interactive features using JavaScript, jQuery, and AngularJS (version 4).",
         "Collaborated with cross-functional teams following Scrum methodology.",
         "Communicated daily with Danish clients via email and Skype for requirement gathering and updates.",
+        "Collaborated closely with backend developers to integrate APIs and ensure smooth end-to-end functionality.",
+        "Identified and resolved frontend issues to improve application performance, usability, and overall user experience.",
       ],
     },
     {
