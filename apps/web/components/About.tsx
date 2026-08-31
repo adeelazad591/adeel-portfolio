@@ -82,11 +82,11 @@ export const About = () => {
           />
           <div className="border-border bg-card relative aspect-square overflow-hidden rounded-2xl border shadow-sm">
             <Image
-              src="/images/project_images/adeel.jpeg"
+              src="/images/project_images/portfolio-image.png"
               alt="Adeel Azad"
               fill
               sizes="288px"
-              className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+              className="object-cover transition-all duration-500 group-hover:grayscale"
               priority
             />
           </div>

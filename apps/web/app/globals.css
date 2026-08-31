@@ -26,7 +26,7 @@
   --color-background: #ffffff;
   --color-foreground: #141821;
   --color-body: #353c4a; /* regular paragraph text, one step softer than foreground */
-  --color-faint: #97a1b0; /* placeholder-level text */
+  --color-faint: #6b7585; /* placeholder-level text; must still hit 4.5:1 on light bg */
 
   --color-card: #fbfcfd;
   --color-card-foreground: #141821;
@@ -63,7 +63,7 @@
   --color-background: #0a0d14;
   --color-foreground: #ffffff;
   --color-body: #d3dae4;
-  --color-faint: #6b7585;
+  --color-faint: #97a1b0; /* placeholder-level text; must still hit 4.5:1 on dark bg */
 
   --color-card: #141821;
   --color-card-foreground: #ffffff;
