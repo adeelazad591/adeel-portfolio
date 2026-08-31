@@ -93,11 +93,11 @@ export default function ResumePage() {
                 href={`https://${resumeData.contact.github}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border-primary/40 text-primary hover:bg-primary/10 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm transition-colors"
+                className="border-border text-foreground hover:border-primary/40 hover:bg-primary/10 hover:text-primary inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm transition-colors"
               >
                 <Github size={15} />
                 GitHub
-                <ExternalLink size={12} />
+                <ExternalLink size={12} className="text-muted-foreground" />
               </a>
               <a
                 href={`https://${resumeData.contact.linkedin}`}

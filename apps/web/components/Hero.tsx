@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import Link from "next/link";
 
-import { downloadResume } from "../lib/downloadResume";
 import { TechMarquee } from "./TechMarquee";
 
 const trustedCompanies = [
@@ -82,13 +81,12 @@ export const Hero = () => {
           >
             View My Work
           </Link>
-          <button
-            type="button"
-            onClick={downloadResume}
-            className="border-border bg-card text-foreground hover:border-primary hover:text-primary inline-flex cursor-pointer items-center gap-2 rounded-full border px-6 py-3.5 text-sm font-semibold transition-colors"
+          <Link
+            href="/resume"
+            className="border-border bg-card text-foreground hover:border-primary hover:text-primary inline-flex items-center gap-2 rounded-full border px-6 py-3.5 text-sm font-semibold transition-colors"
           >
-            <FileText size={17} /> Download Resume
-          </button>
+            <FileText size={17} /> View Resume
+          </Link>
         </motion.div>
 
         <motion.div
