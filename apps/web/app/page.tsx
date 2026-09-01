@@ -1,4 +1,5 @@
 import { About } from "@/components/About";
+import { BuiltWith } from "@/components/BuiltWith";
 import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
 import { Hero } from "@/components/Hero";
@@ -15,6 +16,7 @@ export default function HomePage() {
       <Experience />
       <ProjectsPreview />
       <Recommendations />
+      <BuiltWith />
       <Contact />
     </>
   );
